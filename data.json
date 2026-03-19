@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "source": "good morning",
+    "translation": "buenos dias"
+  },
+  {
+    "source": "hello",
+    "translation": "hola"
+  }
+]
