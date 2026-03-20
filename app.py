@@ -1,29 +1,47 @@
 from preprocess import preprocess
 from rag import retrieve
 from llm import translate
+from glossary import apply_glossary
 
-def system_pipeline(text):
+
+def system_pipeline(text, style="General"):
     print("\nUser Input:", text)
 
-    # Step 1: Preprocess
+    # STEP 1: Preprocess
     cleaned = preprocess(text)
     print("After preprocessing:", cleaned)
 
-    # Step 2: RAG retrieval
-    result, score = retrieve(cleaned)
+    # STEP 2: RAG (Domain 3)
+    rag_result = retrieve(cleaned)
 
-    if result:
-        print(f"RAG Match Found ({score}%):", result)
-        return result
+    if rag_result:
+        print(f"RAG Match Found ({rag_result['confidence']}%)")
 
-    # Step 3: LLM fallback
-    print("No good match → Using LLM...")
-    llm_output = translate(cleaned)
-    return llm_output
+        output = apply_glossary(rag_result["translation"])
+
+        return {
+            "translation": output,
+            "source": "RAG",
+            "confidence": rag_result["confidence"]
+        }
+
+    # STEP 3: LLM (Domain 2)
+    print("No match → Using LLM")
+
+    llm_output = translate(cleaned, style)
+    llm_output = apply_glossary(llm_output)
+
+    return {
+        "translation": llm_output,
+        "source": f"LLM ({style})",
+        "confidence": 70
+    }
 
 
-# Test
+# TEST
 if __name__ == "__main__":
-    user_input = input("Enter text: ")
-    final_output = system_pipeline(user_input)
-    print("\nFinal Translation:", final_output)
+    text = input("Enter text: ")
+    style = input("Enter style: ")
+
+    result = system_pipeline(text, style)
+    print("\nFinal Output:", result)

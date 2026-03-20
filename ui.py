@@ -1,6 +1,6 @@
 import streamlit as st
 import json
-
+from app import system_pipeline
 from preprocess import preprocess
 from rag import retrieve, save_translation, retrieve_for_chunks
 from llm import translate, chunk_text
@@ -54,12 +54,14 @@ if page == "📝 Translate":
             # ======================================
             if len(cleaned.split()) <= 8:
 
-                rag_result = retrieve(cleaned)
+                from app import system_pipeline
 
-                if rag_result:
-                    output = apply_glossary(rag_result["translation"])
-                    source = rag_result["source"]
-                    confidence = rag_result["confidence"]
+                result = system_pipeline(user_input, style)
+
+                if result:
+                    output = result["translation"]
+                    source = result["source"]
+                    confidence = result["confidence"]
 
                     st.success(f"{source} | Confidence: {confidence}%")
 

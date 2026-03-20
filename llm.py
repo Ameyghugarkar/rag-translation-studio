@@ -43,11 +43,14 @@ def translate(text, style="General"):
 
     prompt = get_style_prompt(style, text)
 
+    # 🔥 IMPROVED PROMPT
+    prompt += "\n\nOnly return the translated sentence. No explanation."
+
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
             json={
-                "model": "phi",   # your working model
+                "model": "phi",
                 "prompt": prompt,
                 "stream": False
             }
@@ -56,14 +59,15 @@ def translate(text, style="General"):
         if response.status_code == 200:
             result = response.json()["response"].strip()
 
-            # clean bad outputs
+            # CLEAN OUTPUT
+            result = result.replace("\n", " ").strip()
+
             if len(result) == 0:
                 return "Translation error"
 
             return result
 
-        else:
-            return "Translation error"
+        return "Translation error"
 
     except Exception as e:
         print("LLM ERROR:", e)
