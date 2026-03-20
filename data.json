@@ -1,10 +1,38 @@
 [
-  {
-    "source": "good morning",
-    "translation": "buenos dias"
-  },
-  {
-    "source": "hello",
-    "translation": "hola"
-  }
+    {
+        "source": "good morning",
+        "translation": "buenos dias"
+    },
+    {
+        "source": "hello",
+        "translation": "hola"
+    },
+    {
+        "source": "how are you",
+        "translation": " \u00bfC\u00f3mo est\u00e1s? (in Spanish)\n"
+    },
+    {
+        "source": "client needs to be present",
+        "translation": " Se necesita estar presenciendo la persona de su cliente.\n"
+    },
+    {
+        "source": "welcome to our company",
+        "translation": " Bienvenido al empresa\n"
+    },
+    {
+        "source": "legal proceedings starts tommorow",
+        "translation": "La prueba judicial empieza ma\u00f1ana."
+    },
+    {
+        "source": "take medicine twice",
+        "translation": "Toma la medicina dos veces"
+    },
+    {
+        "source": "good morning",
+        "translation": "buenos dias"
+    },
+    {
+        "source": "greetings team",
+        "translation": "\u00a1Hola! Bienvenidos al equipo!"
+    }
 ]
