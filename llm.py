@@ -1,77 +1,70 @@
 import requests
 
+
 # -----------------------------
-# TRANSLATION FUNCTION
+# CHUNKING (FIXED)
 # -----------------------------
-def translate(text, style="General", target_language="Spanish"):
-    """
-    Translate text using local LLM (Ollama)
-    """
+def chunk_text(text, size=6):
+    words = text.split()
+    chunks = []
 
-    # 🔥 STRICT PROMPT (prevents leakage)
-    prompt = f"""
-You are a translator.
+    for i in range(0, len(words), size):
+        chunk = " ".join(words[i:i+size])
+        chunks.append(chunk)
 
-Translate to {target_language} in {style} style.
+    return chunks
 
-Output ONLY the final translation.
-NO explanation.
-NO extra text.
 
-Text: {text}
-"""
+# -----------------------------
+# STYLE PROMPTS
+# -----------------------------
+def get_style_prompt(style, text):
+
+    if style == "Legal":
+        return f"Translate into formal legal Spanish:\n{text}"
+
+    elif style == "Healthcare":
+        return f"Translate into professional medical Spanish:\n{text}"
+
+    elif style == "Business":
+        return f"Translate into professional business Spanish:\n{text}"
+
+    elif style == "Casual":
+        return f"Translate into casual conversational Spanish:\n{text}"
+
+    else:
+        return f"Translate into Spanish:\n{text}"
+
+
+# -----------------------------
+# LLM TRANSLATION (OLLAMA PHI)
+# -----------------------------
+def translate(text, style="General"):
+
+    prompt = get_style_prompt(style, text)
 
     try:
         response = requests.post(
             "http://localhost:11434/api/generate",
             json={
-                "model": "phi",   # you can switch to llama3 later
+                "model": "phi",   # your working model
                 "prompt": prompt,
                 "stream": False
             }
         )
 
-        result = response.json()
+        if response.status_code == 200:
+            result = response.json()["response"].strip()
 
-        if "response" not in result:
-            return "⚠️ No response from model."
+            # clean bad outputs
+            if len(result) == 0:
+                return "Translation error"
 
-        output = result["response"].strip()
+            return result
 
-        # -----------------------------
-        # 🔥 CLEAN OUTPUT (VERY IMPORTANT)
-        # -----------------------------
-
-        # remove unwanted parts
-        if "Text:" in output:
-            output = output.split("Text:")[0]
-
-        # remove extra lines
-        if "\n" in output:
-            output = output.split("\n")[0]
-
-        # remove quotes if any
-        output = output.strip('"')
-
-        return output.strip()
+        else:
+            return "Translation error"
 
     except Exception as e:
-        return f"❌ Error: {str(e)}"
-
-
-# -----------------------------
-# TEST
-# -----------------------------
-if __name__ == "__main__":
-    print("🔹 Testing LLM...\n")
-
-    test_cases = [
-        ("take medicine twice a day", "Healthcare"),
-        ("legal proceedings start tomorrow", "Legal"),
-        ("good morning team", "General")
-    ]
-
-    for text, style in test_cases:
-        print(f"Input: {text} ({style})")
-        print("Output:", translate(text, style))
-        print("-" * 40)
+        print("LLM ERROR:", e)
+        return "Translation error"

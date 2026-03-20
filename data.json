@@ -9,7 +9,7 @@
     },
     {
         "source": "how are you",
-        "translation": " \u00bfC\u00f3mo est\u00e1s? (in Spanish)\n"
+        "translation": " ¿Cómo estás? (in Spanish)\n"
     },
     {
         "source": "client needs to be present",
@@ -21,7 +21,7 @@
     },
     {
         "source": "legal proceedings starts tommorow",
-        "translation": "La prueba judicial empieza ma\u00f1ana."
+        "translation": "La prueba judicial empieza mañana."
     },
     {
         "source": "take medicine twice",
@@ -33,6 +33,78 @@
     },
     {
         "source": "greetings team",
-        "translation": "\u00a1Hola! Bienvenidos al equipo!"
+        "translation": "¡Hola! Bienvenidos al equipo!"
+    },
+    {
+        "source": "we will start working today",
+        "translation": "¡Vamos empezar trabajando hoy!"
+    },
+    {
+        "source": "the budget of my client",
+        "translation": "el presupuesto del cliente",
+        "style": "Legal",
+        "approved": true
+    },
+    {
+        "source": "good morning team we will start working from tomorrow everyone will be compensated well so please join",
+        "translation": "¡Buenos días, equipo! Empezamos trabajando desde mañana el próximo domingo todos serán compensados bien y por favor asistirás.",
+        "style": "Business",
+        "approved": true
+    },
+    {
+        "source": "hello team ",
+        "translation": "Hello team",
+        "style": "Business"
+    },
+    {
+        "source": "we will start",
+        "translation": "Estaremos comenzando.",
+        "style": "Business"
+    },
+    {
+        "source": "we will start work",
+        "translation": "Estaremos comenzando.",
+        "style": "Business"
+    },
+    {
+        "source": "provide timely salaries",
+        "translation": "Oficina de transacciones a la llegada temprana al salario.",
+        "style": "Business"
+    },
+    {
+        "source": "we will meet",
+        "translation": "Estaremos comenzando.",
+        "style": "General",
+        "approved": true
+    },
+    {
+        "source": "tommorrow",
+        "translation": "siempre",
+        "style": "General",
+        "approved": true
+    },
+    {
+        "source": "tomorrow",
+        "translation": "siempre",
+        "style": "General",
+        "approved": true
+    },
+    {
+        "source": "we will meet tomorrow",
+        "translation": "Estaremos comenzando.",
+        "style": "General",
+        "approved": true
+    },
+    {
+        "source": "we have hackathon",
+        "translation": "Tenemos la fiesta de hackathon.",
+        "style": "General",
+        "approved": true
+    },
+    {
+        "source": "prepare properly for ppt",
+        "translation": "Esta es la traducción al español: Para prepararse adecuadamente para ir",
+        "style": "General",
+        "approved": true
     }
 ]
